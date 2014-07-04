@@ -5,15 +5,10 @@
 </head>
  
 <body>
+<h2>Our fantastic products</h2>
+<div id="products">(fetching product list ...)</div>
 <script>
-new Ajax.Request('//google.com', {
-    method:'get',
-    onSuccess: function(transport) {
-        var response = transport.responseText || "no response text";
-        alert("Success! \n\n" + response);
-    },
-    onFailure: function() { alert('Something went wrong...'); }
-});
+new Ajax.Updater('products', '//google.com', { method: 'get' });
 </script>
 </body>
  
