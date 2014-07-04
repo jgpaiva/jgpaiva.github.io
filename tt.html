@@ -18,9 +18,10 @@
 <script type="text/javascript">
 $('abutton').click(function(){
         $.get('//httpbin.org/get', function(data) {
-        //debugger;
-        $("#products").replaceWith(JSON.stringify(data));
-        })});
+            //debugger;
+            $("#products").replaceWith(JSON.stringify(data));
+            });
+        });
 </script>
 </body>
 </html>
