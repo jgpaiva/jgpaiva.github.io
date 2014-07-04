@@ -16,7 +16,7 @@
 </div>
 <script type="text/javascript">
 $.get('//httpbin.org/response-headers?rabiosque:2', function(data) {
-        $("#products").replaceWith(data);
+        $("#products").replaceWith(data.readyState);
         });
 </script>
 </body>
