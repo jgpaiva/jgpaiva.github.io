@@ -16,8 +16,8 @@
 </div>
 <script type="text/javascript">
 $.get('//httpbin.org/get', function(data) {
-        debugger;
-        $("#products").replaceWith(data);
+        //debugger;
+        $("#products").replaceWith(JSON.stringify(data));
         });
 </script>
 </body>
