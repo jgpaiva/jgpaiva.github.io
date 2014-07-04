@@ -17,6 +17,7 @@
 <button id="abutton" type="button">Click Me!</button>
 <script type="text/javascript">
 $('abutton').click(function(){
+        debugger;
         $.get('//httpbin.org/get', function(data) {
             //debugger;
             $("#products").replaceWith(JSON.stringify(data));
