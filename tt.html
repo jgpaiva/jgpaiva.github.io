@@ -14,11 +14,13 @@
 <div id="tt">
     (fetching product list ...)
 </div>
+<button id="abutton" type="button">Click Me!</button>
 <script type="text/javascript">
-$.get('//httpbin.org/get', function(data) {
+$('abutton').click(function(){
+        $.get('//httpbin.org/get', function(data) {
         //debugger;
         $("#products").replaceWith(JSON.stringify(data));
-        });
+        })});
 </script>
 </body>
 </html>
