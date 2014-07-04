@@ -13,7 +13,7 @@
   <div id="products">
     (fetching product list ...)
   </div><script type="text/javascript">
-new Ajax.Updater('products', '//google.com', { 
+new Ajax.Updater('products', 'httpbin.org/get', { 
         method: 'get',
         insertion: Insertion.Top});
   </script>
