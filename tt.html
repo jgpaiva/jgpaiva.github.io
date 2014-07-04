@@ -15,9 +15,8 @@
     (fetching product list ...)
 </div>
 <script type="text/javascript">
-$.get('//httpbin.org/response-headers?rabiosque:2', function(data) {
-        $("#products").html(data);
-        alert(data)
+$.get('//httpbin.org/get', function(data) {
+        $("#products").replaceWith(data.rabiosque);
         });
 </script>
 </body>
