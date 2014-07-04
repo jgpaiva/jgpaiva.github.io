@@ -1,19 +1,23 @@
 <html>
 <head>
-  <title>Title of the document</title>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<title>Title of the document</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </script>
 </head>
 
 <body>
-  <h2>Our fantastic products</h2>
+<h2>Our fantastic products</h2>
 
-  <div id="products">
+<div id="products">
     (fetching product list ...)
-  </div><script type="text/javascript">
+</div>
+<div id="tt">
+    (fetching product list ...)
+</div>
+<script type="text/javascript">
 $.get('//httpbin.org/response-headers?rabiosque:2', function(data) {
-             $("#products").replaceWith(data);
-             });
-  </script>
+        $("#products").replaceWith(data);
+        });
+</script>
 </body>
 </html>
