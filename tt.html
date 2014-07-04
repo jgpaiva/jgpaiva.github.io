@@ -17,9 +17,8 @@
 <script type="text/javascript">
 $.get('//httpbin.org/get', function(data) {
         $("#products").replaceWith(data.rabiosque);
-        }).done(function() {
-                alert( "success" );
-                  });
+        alert(data.rabiosque);
+        });
 </script>
 </body>
 </html>
