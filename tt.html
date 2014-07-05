@@ -15,7 +15,7 @@
 <script type="text/javascript">
 $('#abutton').click(function(){
         $.get('http://salty-ocean-6766.herokuapp.com/services/translation/testing', function(data) {
-            //debugger;
+            debugger;
             $("#toreplace").replaceWith(JSON.stringify(data));
             });
         });
