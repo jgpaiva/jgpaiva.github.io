@@ -14,14 +14,15 @@
 <button id="abutton" type="button">Click me to replace text!</button>
 <script type="text/javascript">
 $('#abutton').click(function(){
-        $.Ajax({
+        $.ajax({ 
             url:'http://salty-ocean-6766.herokuapp.com/services/translation/testing',
             data:[],
-            success:function(data) {
-            debugger;
-            $("#toreplace").replaceWith(JSON.stringify(data));
-            },
-            dataType:'jsonp'})
+            success: function(data) {
+                debugger;
+                $("#toreplace").replaceWith(JSON.stringify(data));
+                },
+            dataType:'jsonp'
+            })
         });
 </script>
 </body>
