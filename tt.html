@@ -6,20 +6,17 @@
 </head>
 
 <body>
-<h2>Our fantastic products</h2>
+<h2>This is a simple page</h2>
 
-<div id="products">
-    (fetching product list ...)
+<div id="toreplace">
+    This is some text which will be replaced
 </div>
-<div id="tt">
-    (fetching product list ...)
-</div>
-<button id="abutton" type="button">Click Me!</button>
+<button id="abutton" type="button">Click me to replace text!</button>
 <script type="text/javascript">
 $('#abutton').click(function(){
         $.get('http://salty-ocean-6766.herokuapp.com/services/translation/testing', function(data) {
             //debugger;
-            $("#products").replaceWith(JSON.stringify(data));
+            $("#toreplace").replaceWith(JSON.stringify(data));
             });
         });
 </script>
