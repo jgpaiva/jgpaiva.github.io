@@ -18,7 +18,6 @@ $('#abutton').click(function(){
             url:'http://salty-ocean-6766.herokuapp.com/services/translation/09c12de9c4',
             data:[],
             success: function(data) {
-                debugger;
                 $("#toreplace").replaceWith(JSON.stringify(data));
                 },
             dataType:'json',
