@@ -15,13 +15,16 @@
 <script type="text/javascript">
 $('#abutton').click(function(){
         $.ajax({ 
-            url:'http://salty-ocean-6766.herokuapp.com/services/translation/testing',
+            url:'http://salty-ocean-6766.herokuapp.com/services/translation/09c12de9c4',
             data:[],
             success: function(data) {
                 debugger;
                 $("#toreplace").replaceWith(JSON.stringify(data));
                 },
-            dataType:'json'
+            dataType:'jsonp'
+            error:function(){
+                alert("Error");
+                }   
             })
         });
 </script>
