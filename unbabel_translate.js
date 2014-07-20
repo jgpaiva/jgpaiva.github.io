@@ -1,5 +1,5 @@
-//var server_link = "http://salty-ocean-6766.herokuapp.com" 
-var server_link = "http://localhost:8080";
+var server_link = "http://salty-ocean-6766.herokuapp.com" 
+//var server_link = "http://localhost:8080";
 var user = "jgpaiva";
 var key = "jj";
 
