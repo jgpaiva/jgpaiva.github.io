@@ -4,7 +4,7 @@ var user = "jgpaiva";
 var key = "jj";
 
 var autoTranslation = "<br/>This text was machine translated through Unbabel."
-var realTranslation = "<br/>This text was translated by humans through Unbabel."
+var realTranslation = "unbabeldisclaimer.p {font-size:50%} <p class=unbabeldisclaimer>This text was translated by humans through Unbabel.</p>"
 
 function reset() {
     $('#translate-button').text("Translate");
