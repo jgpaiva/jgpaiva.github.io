@@ -41,10 +41,10 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
                 $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             }else{
-                unbabel-min_requests = button.attr("unbabel-min_requests");
-                if(unbabel-min_requests){
-                    console.log("Haven't reached min_requests yet. At: " + unbabel-min_requests);
-                    button.attr("unbabel-min_requests", unbabel-min_requests - 1);
+                unbabel_min_requests = button.attr("unbabel-min_requests");
+                if(unbabel_min_requests){
+                    console.log("Haven't reached min_requests yet. At: " + unbabel_min_requests);
+                    button.attr("unbabel-min_requests", unbabel_min_requests - 1);
                     $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(placeholder + machineTranslation);
                 }else{
                     console.log("The translation came back empty, rescheduling.");
