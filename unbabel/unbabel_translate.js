@@ -28,10 +28,9 @@ function register_unbabel() {
         $(this).attr("disabled", "disabled");
         $(this).text("Translating... Please wait.");
         button = $(this);
-        if($(this).text() == crowdSource){
+        if($(this).attr(crowdSource)){
             window.open("http://jgpaiva.github.io/unbabel/demo_crowd.html");
         }else{
-            console.log("button text was " + $(this).text());
             get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,true);
         }
     });
@@ -103,8 +102,9 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, 
                 button.text("Translated!");
             }else if(data.status == "ignored"){
                 console.log("Translation request was ignored. Avoiding scheduling requests.");
-                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
                 button.text(crowdSource);
+                button.attr('crowdSource',true);
                 button.attr("disabled",false);
             }
         },
