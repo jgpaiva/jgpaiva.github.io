@@ -6,7 +6,8 @@ var key = "jj";
 var machineTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>';
 var realTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.</p>';
 var placeholder = 'PLACEHOLDER TEXT, IN PLACE OF IMMEDIATE AUTOMATIC TRANSLATION';
-var waitForTranslation = '<p style="font-size:70%;color:blue">Please wait for human translation, should take a few minutes...</p>'
+var waitForTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.<br/>Please wait for human translation, should take a few minutes...</p>';
+var crowdSource = "Crowd source this translation";
 
 function reset() {
     $('#translate-button').text("Translate");
@@ -27,7 +28,11 @@ function register_unbabel() {
         $(this).attr("disabled", "disabled");
         $(this).text("Translating... Please wait.");
         button = $(this);
-        get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,true);
+        if($(this).text() == crowdSource){
+            window.open("http://jgpaiva.github.io/unbabel/demo_crowd.html");
+        }else{
+            get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,true);
+        }
     });
 }
 
@@ -90,13 +95,16 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, 
         contentType : "application/json",
         success : function(data) {
             console.log("Got POST reply: " + JSON.stringify(data));
-            button.text("Translated!");
             if(data.status == "requested"){
                 console.log("Translation was requested. Scheduling periodic gets.");
                 schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
-                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation + waitForTranslation);
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + waitForTranslation);
+                button.text("Translated!");
             }else if(data.status == "ignored"){
                 console.log("Translation request was ignored. Avoiding scheduling requests.");
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
+                button.text(crowdSource);
+                button.attr("disabled",false);
             }
         },
         dataType : 'json',
