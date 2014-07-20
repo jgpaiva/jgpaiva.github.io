@@ -14,7 +14,7 @@ function register_unbabel() {
         button = $(this);
         $.ajax({
             type : "GET",
-            url : server_link + '/services/translation/' + unbabel_id + "/" + unbabel_user + "/" + unbabel_auth,
+            url : server_link + '/translation/' + unbabel_id + "/" + unbabel_user + "/" + unbabel_auth,
             crossDomain: true,
             data : [],
             success : function(data) {
@@ -23,8 +23,8 @@ function register_unbabel() {
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             },
             dataType : 'json',
-            error : function(data) {
-                alert("Error:" + data);
+            error : function() {
+                alert("Error");
             }
         });
     });
