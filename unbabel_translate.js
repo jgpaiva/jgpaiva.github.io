@@ -3,7 +3,7 @@ var server_link = "http://localhost:8080";
 var user = "jgpaiva";
 var key = "jj";
 
-var autoTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>'
+var machineTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>'
 var realTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.</p>'
 
 function reset() {
