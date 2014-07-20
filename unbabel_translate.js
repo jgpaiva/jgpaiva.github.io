@@ -3,6 +3,14 @@ var server_link = "http://localhost:8080";
 var user = "jgpaiva";
 var key = "jj";
 
+function reset() {
+    $('#translate-button').text("Translate");
+    $('#translate-button').attr("disabled", false);
+    $('#translate-button').attr("unbabel-id","INVALID");
+    $('#translate-button').attr("unbabel-auth","INVALID");
+    $('#translate-button').attr("unbabeli-user","INVALID");
+}
+
 function register_unbabel() {
     $('#translate-button').click(function() {
         unbabel_id = $(this).attr("unbabel-id");
