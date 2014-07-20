@@ -3,6 +3,9 @@ var server_link = "http://localhost:8080";
 var user = "jgpaiva";
 var key = "jj";
 
+var autoTranslation = "<br/>This text was machine translated by Unbabel."
+var realTranslation = "<br/>This text was translated by humans through Unbabel."
+
 function reset() {
     $('#translate-button').text("Translate");
     $('#translate-button').attr("disabled", false);
@@ -27,7 +30,7 @@ function register_unbabel() {
             data : [],
             success : function(data) {
                 console.log("Got GET reply: " + JSON.stringify(data));
-                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             },
             dataType : 'json',
@@ -64,7 +67,7 @@ function issue_translation(button,unbabel_user, unbabel_id, unbabel_auth, text){
         contentType : "application/json",
         success : function(data) {
             console.log("got POST reply: " + JSON.stringify(data));
-            $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
+            $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
             button.text("Translated!");
         },
         dataType : 'json',
