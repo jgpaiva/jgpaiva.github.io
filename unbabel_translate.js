@@ -68,11 +68,6 @@ function test(text) {
 		type : "GET",
 		crossDomain: true,
 		url : server_link + "/greeting?name=porra%20tolaaaaaa" ,
-		data : JSON.stringify({
-			user : user,
-			key : key,
-			text : text
-		}),
 		contentType : "application/json",
 		success : function(data) {
 			console.log("got GET reply: " + JSON.stringify(data));
