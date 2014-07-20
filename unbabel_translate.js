@@ -39,6 +39,8 @@ function register_unbabel() {
                 },
                 401 : function() {
                     console.log("Error retrieving translation, unauthorized");
+                    text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text("ERROR: Unauthorized request.");
+                    reset();
                 }
             }
         });
