@@ -31,7 +31,7 @@ function register_unbabel() {
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             },
             dataType : 'json',
-            statuscode : {
+            statusCode : {
                 500 : function() {
                     console.log("Error retrieving translation. Issuing new translation");
                     text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
