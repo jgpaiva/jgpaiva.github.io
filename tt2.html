@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+	rel="stylesheet">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script type="text/javascript" src="unbabel_translate.js" ></script>
+</script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>This is a demo page with some text</h1>
+		</div>
+
+                <h3>User</h3>
+                <input type="text" name="user" id="key" maxlength="1024" />
+                <br />
+
+                <h3>Key</h3>
+                <input type="text" name="text" id="key" maxlength="1024" />
+                <br />
+
+                <h3>Text To Sign</h3>
+                <input type="text" name="text" id="key" maxlength="1024" />
+                <br />
+
+                <input type="button" value=" Sign " onclick="sign_demo_text()" />
+                &nbsp;
+
+		<div id="toreplace" unbabel-id="INVALID_ID">
+			No Text
+		</div>
+
+		<button id="translate-button" type="button"
+			unbabel-id="INVALID_ID"
+			unbabel-auth="INVALID_AUTH"
+			unbabel-user="INVALID_USER">
+			Translate Text
+		</button>
+	</div>
+</body>
+<script>register_unbabel()</script>
+</html>
+
+
