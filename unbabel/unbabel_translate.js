@@ -15,7 +15,7 @@ function reset() {
     $('#translate-button').attr("unbabel-id","INVALID");
     $('#translate-button').attr("unbabel-auth","INVALID");
     $('#translate-button').attr("unbabel-user","INVALID");
-    $('#translate-button').attr("crowdsource",false);
+    $('#translate-button').removeAttr("crowdsource",false);
 }
 
 function register_unbabel() {
