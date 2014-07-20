@@ -31,6 +31,7 @@ function register_unbabel() {
         if($(this).text() == crowdSource){
             window.open("http://jgpaiva.github.io/unbabel/demo_crowd.html");
         }else{
+            console.log("button text was " + $(this).text());
             get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,true);
         }
     });
