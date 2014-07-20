@@ -47,6 +47,7 @@ function sign_text(text) {
 			key : key,
 			text : text
 		}),
+                cache: false, 
 		contentType : "application/json",
 		success : function(data) {
 			console.log("got POST reply: " + JSON.stringify(data));
@@ -67,6 +68,7 @@ function test(text) {
 	$.ajax({
 		type : "GET",
 		crossDomain: true,
+                cache: false, 
 		url : server_link + "/greeting?name=porra%20tolaaaaaa" ,
 		contentType : "application/json",
 		success : function(data) {
