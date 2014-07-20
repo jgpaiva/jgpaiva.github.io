@@ -3,8 +3,9 @@ var server_link = "http://salty-ocean-6766.herokuapp.com"
 var user = "jgpaiva";
 var key = "jj";
 
-var machineTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>'
-var realTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.</p>'
+var machineTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>';
+var realTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.</p>';
+var placeholder = 'PLACEHOLDER TEXT, IN PLACE OF IMMEDIATE AUTOMATIC TRANSLATION';
 
 function reset() {
     $('#translate-button').text("Translate");
@@ -44,6 +45,7 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
                 if(unbabel-min_requests){
                     console.log("Haven't reached min_requests yet. At: " + unbabel-min_requests);
                     button.attr("unbabel-min_requests", unbabel-min_requests - 1);
+                    $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(placeholder + machineTranslation);
                 }else{
                     console.log("The translation came back empty, rescheduling.");
                     schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
