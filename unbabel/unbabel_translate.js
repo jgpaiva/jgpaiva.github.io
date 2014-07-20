@@ -6,7 +6,7 @@ var key = "jj";
 var machineTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>';
 var realTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.</p>';
 var placeholder = 'PLACEHOLDER TEXT, IN PLACE OF IMMEDIATE AUTOMATIC TRANSLATION';
-var waitForTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.<br/>Please wait for human translation, should take a few minutes...</p>';
+var waitForTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.<br/>Please wait for human translation, should take a few minutes...</p>';
 var crowdSource = "Crowd source this translation";
 
 function reset() {
