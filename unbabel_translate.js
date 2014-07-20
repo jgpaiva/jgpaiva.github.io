@@ -109,7 +109,7 @@ function sign_demo_text() {
             $("#translate-button").attr("unbabel-id",data.hash);
             $("#translate-button").attr("unbabel-user",user);
             $("#translate-button").attr("unbabel-auth",data.encryptedHash);
-            $("#sign_text").text("added signature for user " + user + " with hash " + data.hash + " and signature " + data.encryptedHasH);
+            $("#sign_text").text("added signature for user " + user + " with hash " + data.hash + " and signature " + data.encryptedHash);
         },
         dataType : 'json',
         error : function(data) {
