@@ -39,18 +39,10 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
             console.log("Got GET reply: " + JSON.stringify(data));
             if(data['translatedText']){
                 $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
-                button.text("Translate"); // XXX: can this be a problem? at what time is this bound to the button variable?
-                button.attr("disabled", false);
+                button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             }else{
-                unbabel_min_requests = button.attr("unbabel-min_requests");
-                if(unbabel_min_requests){
-                    console.log("Haven't reached min_requests yet. At: " + unbabel_min_requests);
-                    button.attr("unbabel-min_requests", unbabel_min_requests - 1);
-                    $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(placeholder + machineTranslation);
-                }else{
-                    console.log("The translation came back empty, rescheduling.");
-                    schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
-                }
+                console.log("The translation came back empty, rescheduling.");
+                schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
             }
         },
         dataType : 'json',
@@ -59,7 +51,8 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
                 console.log("Error retrieving translation. Issuing new translation");
                 text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
                 if(first_request){
-                    post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+                    unbabel_min_requests = button.attr("unbabel-min_requests");
+                    post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, unbabel_min_requests);
                 }else{
                     console.log("Error updating translation, scheduling new operation.");
                     schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
@@ -78,7 +71,7 @@ function schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,te
     setTimeout(function(){get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,false)},20000);
 }
 
-function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
+function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, unbabel_min_requests){
     $.ajax({
         type : "POST",
         crossDomain: true,
@@ -89,16 +82,21 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
             sourceLanguage : "en",
             destLanguage: "pt",
             text: text,
-            user: user
+            user: user,
+            min_requests: unbabel_min_requests
             }),
         cache: false, 
         contentType : "application/json",
         success : function(data) {
             console.log("Got POST reply: " + JSON.stringify(data));
             $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
-            button.text("Translate");
-            button.attr("disabled", false);
-            schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+            button.text("Translated!");
+            if(data.status == "requested"){
+                console.log("Translation was requested. Scheduling synchronous new get.");
+                schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+            }else if(data.status == "ignored"){
+                console.log("Translation request was ignored. Avoiding scheduling requests.");
+            }
         },
         dataType : 'json',
         error : function(data) {
