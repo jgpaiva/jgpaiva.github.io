@@ -6,6 +6,7 @@ var key = "jj";
 var machineTranslation = '<p style="font-size:70%;color:blue">This text was machine translated through Unbabel.</p>';
 var realTranslation = '<p style="font-size:70%;color:blue">This text was translated by humans through Unbabel.</p>';
 var placeholder = 'PLACEHOLDER TEXT, IN PLACE OF IMMEDIATE AUTOMATIC TRANSLATION';
+var waitForTranslation = '<p style="font-size:70%;color:blue">Please wait for human translation, should take a few minutes...</p>'
 
 function reset() {
     $('#translate-button').text("Translate");
@@ -89,11 +90,11 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, 
         contentType : "application/json",
         success : function(data) {
             console.log("Got POST reply: " + JSON.stringify(data));
-            $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
             button.text("Translated!");
             if(data.status == "requested"){
                 console.log("Translation was requested. Scheduling periodic gets.");
                 schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation + waitForTranslation);
             }else if(data.status == "ignored"){
                 console.log("Translation request was ignored. Avoiding scheduling requests.");
             }
