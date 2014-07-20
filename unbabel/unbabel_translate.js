@@ -113,6 +113,7 @@ function sign_demo2_text() {
     user = document.user.text.value;
     key = document.key.text.value;
     text = document.text.text.value;
+    reset()
 
     console.log(JSON.stringify({
         user : user,
@@ -151,6 +152,7 @@ function sign_demo3_text() {
     key = document.key.text.value;
     text = document.text.text.value;
     min_requests = document.min_requests.text.value;
+    reset()
 
     console.log(JSON.stringify({
         user : user,
