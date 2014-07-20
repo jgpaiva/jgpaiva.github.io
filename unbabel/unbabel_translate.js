@@ -19,6 +19,7 @@ function register_unbabel() {
         unbabel_id = $(this).attr("unbabel-id");
         unbabel_auth = $(this).attr("unbabel-auth");
         unbabel_user = $(this).attr("unbabel-user");
+        
         console.log("found button with ID " + unbabel_id + " auth " + unbabel_auth + " user " + unbabel_user);
         $(this).attr("disabled", "disabled");
         $(this).text("Translating... Please wait.");
@@ -39,8 +40,14 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
                 $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             }else{
-                console.log("The translation came back empty, rescheduling.");
-                schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+                unbabel-min_requests = button.attr("unbabel-min_requests");
+                if(unbabel-min_requests){
+                    console.log("Haven't reached min_requests yet. At: " + unbabel-min_requests);
+                    button.attr("unbabel-min_requests", unbabel-min_requests - 1);
+                }else{
+                    console.log("The translation came back empty, rescheduling.");
+                    schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+                }
             }
         },
         dataType : 'json',
@@ -84,7 +91,7 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
         cache: false, 
         contentType : "application/json",
         success : function(data) {
-            console.log("got POST reply: " + JSON.stringify(data));
+            console.log("Got POST reply: " + JSON.stringify(data));
             $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
             button.text("Translated!");
             schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
@@ -100,7 +107,7 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
 }
 
 
-function sign_demo_text() {
+function sign_demo2_text() {
     user = document.user.text.value;
     key = document.key.text.value;
     text = document.text.text.value;
@@ -122,12 +129,51 @@ function sign_demo_text() {
         cache: false, 
         contentType : "application/json",
         success : function(data) {
-            console.log("got POST reply: " + JSON.stringify(data));
+            console.log("Got POST reply: " + JSON.stringify(data));
             $("#toreplace").text(text);
             $("#toreplace").attr("unbabel-id",data.hash);
             $("#translate-button").attr("unbabel-id",data.hash);
             $("#translate-button").attr("unbabel-user",user);
             $("#translate-button").attr("unbabel-auth",data.encryptedHash);
+            $("#sign_text").text("added signature for user " + user + " with hash " + data.hash + " and signature " + data.encryptedHash);
+        },
+        dataType : 'json',
+        error : function(data) {
+            console.log("Error: " + JSON.stringify(data));
+        }
+    });
+}
+
+function sign_demo3_text() {
+    user = document.user.text.value;
+    key = document.key.text.value;
+    text = document.text.text.value;
+    min_requests = document.min_requests.text.value;
+
+    console.log(JSON.stringify({
+        user : user,
+        key : key,
+        text : text
+    }));
+    $.ajax({
+        type : "POST",
+        crossDomain: true,
+        url : server_link + '/sign/',
+        data : JSON.stringify({
+            user : user,
+        key : key,
+        text : text
+        }),
+        cache: false, 
+        contentType : "application/json",
+        success : function(data) {
+            console.log("Got POST reply: " + JSON.stringify(data));
+            $("#toreplace").text(text);
+            $("#toreplace").attr("unbabel-id",data.hash);
+            $("#translate-button").attr("unbabel-id",data.hash);
+            $("#translate-button").attr("unbabel-user",user);
+            $("#translate-button").attr("unbabel-auth",data.encryptedHash);
+            $("#translate-button").attr("unbabel-min_requests",data.encryptedHash);
             $("#sign_text").text("added signature for user " + user + " with hash " + data.hash + " and signature " + data.encryptedHash);
         },
         dataType : 'json',
