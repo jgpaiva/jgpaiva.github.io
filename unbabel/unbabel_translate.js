@@ -83,7 +83,7 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, 
             destLanguage: "pt",
             text: text,
             user: user,
-            min_requests: unbabel_min_requests
+            minRequests: unbabel_min_requests
             }),
         cache: false, 
         contentType : "application/json",
@@ -92,7 +92,7 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, 
             $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
             button.text("Translated!");
             if(data.status == "requested"){
-                console.log("Translation was requested. Scheduling synchronous new get.");
+                console.log("Translation was requested. Scheduling periodic gets.");
                 schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
             }else if(data.status == "ignored"){
                 console.log("Translation request was ignored. Avoiding scheduling requests.");
