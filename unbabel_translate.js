@@ -54,8 +54,10 @@ function issue_translation(button,unbabel_user, unbabel_id, unbabel_auth, text){
         },
         dataType : 'json',
         error : function(data) {
+            $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(ERROR);
             console.log("Error: " + JSON.stringify(data));
-            button.text("Error!");
+            button.text("Translate");
+            button.attr("disabled", false);
         }
     });
 }
