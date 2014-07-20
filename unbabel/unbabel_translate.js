@@ -35,8 +35,13 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
         data : [],
         success : function(data) {
             console.log("Got GET reply: " + JSON.stringify(data));
-            $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
-            button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
+            if(data['translatedText']){
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
+                button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
+            }else{
+                console.log("The translation came back empty, rescheduling.");
+                schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+            }
         },
         dataType : 'json',
         statusCode : {
