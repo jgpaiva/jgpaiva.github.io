@@ -38,7 +38,7 @@ function register_unbabel() {
                 500 : function() {
                     console.log("Error retrieving translation. Issuing new translation");
                     text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
-                    issue_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+                    post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
                 },
                 401 : function() {
                     console.log("Error retrieving translation, unauthorized");
@@ -50,7 +50,35 @@ function register_unbabel() {
     });
 }
 
-function issue_translation(button,unbabel_user, unbabel_id, unbabel_auth, text){
+function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, first_request){
+        $.ajax({
+            type : "GET",
+            url : server_link + '/translation/' + unbabel_id + "/" + unbabel_user + "/" + unbabel_auth,
+            crossDomain: true,
+            data : [],
+            success : function(data) {
+                console.log("Got GET reply: " + JSON.stringify(data));
+                $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
+                button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
+            },
+            dataType : 'json',
+            statusCode : {
+                500 : function() {
+                    console.log("Error retrieving translation. Issuing new translation");
+                    text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
+                    post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+                },
+                401 : function() {
+                    console.log("Error retrieving translation, unauthorized");
+                    text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text("ERROR: Unauthorized request.");
+                    reset();
+                }
+            }
+        });
+    });
+}
+
+function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
     $.ajax({
         type : "POST",
         crossDomain: true,
