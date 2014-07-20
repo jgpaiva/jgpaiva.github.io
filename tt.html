@@ -1,31 +1,37 @@
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Title of the document</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+	rel="stylesheet">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script type="text/javascript" src="unbabel_translate.js" ></script>
 </script>
 </head>
 
 <body>
-<h2>This is a simple page</h2>
+	<div class="container">
+		<div class="page-header">
+			<h1>This is a demo page with some text</h1>
+		</div>
 
-<div id="toreplace">
-    This is some text which will be replaced
-</div>
-<button id="abutton" type="button">Click me to replace text!</button>
-<script type="text/javascript">
-$('#abutton').click(function(){
-        $.ajax({ 
-            url:'http://salty-ocean-6766.herokuapp.com/services/translation/09c12de9c4',
-            data:[],
-            success: function(data) {
-                $("#toreplace").replaceWith(JSON.stringify(data));
-                },
-            dataType:'json',
-            error:function(){
-                alert("Error");
-                }   
-            })
-        });
-</script>
+		<div id="toreplace"
+			unbabel-id="ae1aff335528ce2c5e95be301981116eaa05ae0d">
+			Hello, this is Patrick
+		</div>
+
+		<button id="translate-button" type="button"
+			unbabel-id="ae1aff335528ce2c5e95be301981116eaa05ae0d"
+			unbabel-auth="26acf55f90150c1a3243505850d5359602820a35ebf0b5da82f93ec9f16b3c11ef7bc5f0971c5ed4dc6ff5360854f641"
+			unbabel-user="jgpaiva">
+			Translate Text
+		</button>
+	</div>
 </body>
+<script>register_unbabel()</script>
 </html>
