@@ -28,7 +28,7 @@ function register_unbabel() {
         $(this).attr("disabled", "disabled");
         $(this).text("Translating... Please wait.");
         button = $(this);
-        if($(this).attr(crowdSource)){
+        if($(this).attr('crowdSource')){
             window.open("http://jgpaiva.github.io/unbabel/demo_crowd.html");
         }else{
             get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,true);
