@@ -41,7 +41,7 @@ function sign_text(text) {
 	$.ajax({
 		type : "POST",
 		crossDomain: true,
-		url : server_link ,//+ '/services/sign/',
+		url : server_link '/sign/',
 		data : JSON.stringify({
 			user : user,
 			key : key,
