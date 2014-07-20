@@ -32,33 +32,6 @@ function register_unbabel() {
     });
 }
 
-function sign_text(text) {
-    console.log(JSON.stringify({
-        user : user,
-    key : key,
-    text : text
-    }));
-    $.ajax({
-        type : "POST",
-        crossDomain: true,
-        url : server_link + '/sign/',
-        data : JSON.stringify({
-            user : user,
-        key : key,
-        text : text
-        }),
-        cache: false, 
-        contentType : "application/json",
-        success : function(data) {
-            console.log("got POST reply: " + JSON.stringify(data));
-        },
-        dataType : 'json',
-        error : function(data) {
-            console.log("Error: " + JSON.stringify(data));
-        }
-    });
-}
-
 function sign_demo_text() {
     user = document.user.text.value;
     key = document.key.text.value;
@@ -82,8 +55,10 @@ function sign_demo_text() {
         contentType : "application/json",
         success : function(data) {
             console.log("got POST reply: " + JSON.stringify(data));
-            console.log("replacing by text: " + text);
             $("#toreplace").text(text);
+            $("#toreplace").attr("unbabel-id",data.hash);
+            $("#toreplace").attr("unbabel-user",user);
+            $("#toreplace").attr("unbabel-auth",data.encryptedHash);
         },
         dataType : 'json',
         error : function(data) {
