@@ -18,17 +18,50 @@ function register_unbabel() {
             crossDomain: true,
             data : [],
             success : function(data) {
-                console.log("got GET reply: " + JSON.stringify(data));
+                console.log("Got GET reply: " + JSON.stringify(data));
                 $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             },
             dataType : 'json',
             error : function() {
-                alert("Error");
+                console.log("Error retrieving translation. Issuing new translation");
+                text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
+                issue_translation(unbabel_user,unbabel_id,unbabel_auth,text);
             }
         });
     });
 }
+
+function issue_translation(unbabel_user, unbabel_id, unbabel_auth, text){
+    $.ajax({
+        type : "POST",
+        crossDomain: true,
+        url : server_link + '/translation/',
+        data : JSON.stringify({
+            uid : unbabel_id,
+            signature : unbabel_auth,
+            sourceLanguage : "en",
+            destLanguage: "pt",
+            text: text,
+            user: user
+            }),
+        cache: false, 
+        contentType : "application/json",
+        success : function(data) {
+            console.log("got POST reply: " + JSON.stringify(data));
+            $("#toreplace").text(text);
+            $("#toreplace").attr("unbabel-id",data.hash);
+            $("#translate-button").attr("unbabel-id",data.hash);
+            $("#translate-button").attr("unbabel-user",user);
+            $("#translate-button").attr("unbabel-auth",data.encryptedHash);
+        },
+        dataType : 'json',
+        error : function(data) {
+            console.log("Error: " + JSON.stringify(data));
+        }
+    });
+}
+
 
 function sign_demo_text() {
     user = document.user.text.value;
@@ -58,28 +91,6 @@ function sign_demo_text() {
             $("#translate-button").attr("unbabel-id",data.hash);
             $("#translate-button").attr("unbabel-user",user);
             $("#translate-button").attr("unbabel-auth",data.encryptedHash);
-        },
-        dataType : 'json',
-        error : function(data) {
-            console.log("Error: " + JSON.stringify(data));
-        }
-    });
-}
-
-function test(text) {
-    console.log(JSON.stringify({
-        user : user,
-    key : key,
-    text : text
-    }));
-    $.ajax({
-        type : "GET",
-        crossDomain: true,
-        cache: false, 
-        url : server_link + "/greeting?name=porra%20tolaaaaaa" ,
-        contentType : "application/json",
-        success : function(data) {
-            console.log("got GET reply: " + JSON.stringify(data));
         },
         dataType : 'json',
         error : function(data) {
