@@ -57,8 +57,9 @@ function sign_demo_text() {
             console.log("got POST reply: " + JSON.stringify(data));
             $("#toreplace").text(text);
             $("#toreplace").attr("unbabel-id",data.hash);
-            $("#toreplace").attr("unbabel-user",user);
-            $("#toreplace").attr("unbabel-auth",data.encryptedHash);
+            $("#translate-button").attr("unbabel-id",data.hash);
+            $("#translate-button").attr("unbabel-user",user);
+            $("#translate-button").attr("unbabel-auth",data.encryptedHash);
         },
         dataType : 'json',
         error : function(data) {
