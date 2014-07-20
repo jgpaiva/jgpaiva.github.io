@@ -177,7 +177,7 @@ function sign_demo3_text() {
             $("#translate-button").attr("unbabel-id",data.hash);
             $("#translate-button").attr("unbabel-user",user);
             $("#translate-button").attr("unbabel-auth",data.encryptedHash);
-            $("#translate-button").attr("unbabel-min_requests",data.encryptedHash);
+            $("#translate-button").attr("unbabel-min_requests",min_requests);
             $("#sign_text").text("added signature for user " + user + " with hash " + data.hash + " and signature " + data.encryptedHash);
         },
         dataType : 'json',
