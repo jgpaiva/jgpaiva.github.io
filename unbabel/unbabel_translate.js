@@ -39,7 +39,8 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
             console.log("Got GET reply: " + JSON.stringify(data));
             if(data['translatedText']){
                 $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + realTranslation);
-                button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
+                button.text("Translate"); // XXX: can this be a problem? at what time is this bound to the button variable?
+                button.attr("disabled", false);
             }else{
                 unbabel_min_requests = button.attr("unbabel-min_requests");
                 if(unbabel_min_requests){
@@ -95,7 +96,8 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
         success : function(data) {
             console.log("Got POST reply: " + JSON.stringify(data));
             $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
-            button.text("Translated!");
+            button.text("Translate");
+            button.attr("disabled", false);
             schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
         },
         dataType : 'json',
