@@ -20,6 +20,7 @@ function register_unbabel() {
         unbabel_id = $(this).attr("unbabel-id");
         unbabel_auth = $(this).attr("unbabel-auth");
         unbabel_user = $(this).attr("unbabel-user");
+        text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
         
         console.log("found button with ID " + unbabel_id + " auth " + unbabel_auth + " user " + unbabel_user);
         $(this).attr("disabled", "disabled");
@@ -49,7 +50,6 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
         statusCode : {
             500 : function() {
                 console.log("Error retrieving translation. Issuing new translation");
-                text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
                 if(first_request){
                     unbabel_min_requests = button.attr("unbabel-min_requests");
                     post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, unbabel_min_requests);
