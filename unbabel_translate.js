@@ -20,13 +20,11 @@ function register_unbabel() {
             success : function(data) {
                 console.log("got GET reply: " + JSON.stringify(data));
                 $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
-                button.text("Translated!"); // XXX: can this be a problem? at
-                // what time is this bound to the
-                // button variable?
+                button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             },
             dataType : 'json',
-            error : function() {
-                alert("Error");
+            error : function(data) {
+                alert("Error:" + data);
             }
         });
     });
