@@ -66,7 +66,12 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
                 500 : function() {
                     console.log("Error retrieving translation. Issuing new translation");
                     text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
-                    post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+                    if(first_request){
+                        post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+                    }else{
+                        console.log("Error updating translation, scheduling new operation.");
+                        schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
+                    }
                 },
                 401 : function() {
                     console.log("Error retrieving translation, unauthorized");
@@ -76,6 +81,10 @@ function get_translation(button, unbabel_user, unbabel_id, unbabel_auth, text, f
             }
         });
     });
+}
+
+function schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text){
+    setTimeout(function(){get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text,false)},20000);
 }
 
 function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
@@ -97,6 +106,7 @@ function post_translation(button, unbabel_user, unbabel_id, unbabel_auth, text){
             console.log("got POST reply: " + JSON.stringify(data));
             $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText'] + machineTranslation);
             button.text("Translated!");
+            schedule_get_translation(button,unbabel_user,unbabel_id,unbabel_auth,text);
         },
         dataType : 'json',
         error : function(data) {
