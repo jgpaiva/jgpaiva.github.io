@@ -60,9 +60,9 @@ function sign_text(text) {
 }
 
 function sign_demo_text() {
-    user = document.plain.text.user;
-    key = document.plain.text.key;
-    text = document.plain.text.text;
+    user = document.user.text.value;
+    key = document.key.text.value;
+    text = document.text.text.value;
 
     console.log(JSON.stringify({
         user : user,
