@@ -31,10 +31,15 @@ function register_unbabel() {
                 button.text("Translated!"); // XXX: can this be a problem? at what time is this bound to the button variable?
             },
             dataType : 'json',
-            error : function() {
-                console.log("Error retrieving translation. Issuing new translation");
-                text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
-                issue_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+            statuscode : {
+                500 : function() {
+                    console.log("Error retrieving translation. Issuing new translation");
+                    text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
+                    issue_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
+                },
+                401 : function() {
+                    console.log("Error retrieving translation, unauthorized");
+                }
             }
         });
     });
