@@ -26,13 +26,13 @@ function register_unbabel() {
             error : function() {
                 console.log("Error retrieving translation. Issuing new translation");
                 text = $("div[unbabel-id='" + unbabel_id + "']").closest("div").text();
-                issue_translation(unbabel_user,unbabel_id,unbabel_auth,text);
+                issue_translation(button, unbabel_user, unbabel_id, unbabel_auth, text);
             }
         });
     });
 }
 
-function issue_translation(unbabel_user, unbabel_id, unbabel_auth, text){
+function issue_translation(button,unbabel_user, unbabel_id, unbabel_auth, text){
     $.ajax({
         type : "POST",
         crossDomain: true,
@@ -49,15 +49,13 @@ function issue_translation(unbabel_user, unbabel_id, unbabel_auth, text){
         contentType : "application/json",
         success : function(data) {
             console.log("got POST reply: " + JSON.stringify(data));
-            $("#toreplace").text(text);
-            $("#toreplace").attr("unbabel-id",data.hash);
-            $("#translate-button").attr("unbabel-id",data.hash);
-            $("#translate-button").attr("unbabel-user",user);
-            $("#translate-button").attr("unbabel-auth",data.encryptedHash);
+            $("div[unbabel-id='" + unbabel_id + "']").closest("div").html(data['translatedText']);
+            button.text("Translated!");
         },
         dataType : 'json',
         error : function(data) {
             console.log("Error: " + JSON.stringify(data));
+            button.text("Error!");
         }
     });
 }
