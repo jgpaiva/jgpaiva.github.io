@@ -82,6 +82,7 @@ function sign_demo_text() {
         contentType : "application/json",
         success : function(data) {
             console.log("got POST reply: " + JSON.stringify(data));
+            $("#toreplace").text(text);
         },
         dataType : 'json',
         error : function(data) {
