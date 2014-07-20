@@ -60,9 +60,9 @@ function sign_text(text) {
 }
 
 function sign_demo_text() {
-    unbabel_id = $(this).attr("unbabel-id");
-    unbabel_auth = $(this).attr("unbabel-auth");
-    unbabel_user = $(this).attr("unbabel-user");
+    user = document.plain.text.user;
+    key = document.plain.text.key;
+    text = document.plain.text.text;
 
     console.log(JSON.stringify({
         user : user,
